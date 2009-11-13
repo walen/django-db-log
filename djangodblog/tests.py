@@ -66,6 +66,7 @@ class DBLogTestCase(TestCase):
         self.assertEquals(last.message, 'This is a test error')
     
         logger = logging.getLogger('test')
+        logger.setLevel(logging.DEBUG)
         logger.info('This is a test info')
         cur = (Error.objects.count(), ErrorBatch.objects.count())
         self.assertEquals(cur, (4, 3), 'Assumed logs failed to save. %s' % (cur,))
@@ -132,6 +133,7 @@ class DBLogTestCase(TestCase):
             DATABASE_USER=settings.DATABASE_USER,
             DATABASE_PASSWORD=settings.DATABASE_PASSWORD,
             DATABASE_OPTIONS=settings.DATABASE_OPTIONS,
+            TIME_ZONE=settings.TIME_ZONE,
         )
         
         Error.objects.all().delete()
